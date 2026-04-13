@@ -34,3 +34,10 @@ app-navbar {
   width: 100%;
   z-index: 2;
 }
+.bg-primary-subtle {
+  background-color: $primary-subtle !important;
+}
+router-outlet {
+  display: block;
+  padding-top: 106px; /* Adjust this value based on the height of your navbar */
+}

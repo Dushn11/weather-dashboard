@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { Navbar } from '../../layout/navbar/navbar';
-import { Sidebar } from '../../layout/sidebar/sidebar';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, Navbar, Sidebar],
+  imports: [RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
-export class Dashboard {}
+export class Dashboard implements OnInit {
+  constructor(private titleService: Title) {}
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Weather Dashboard');
+  }
+}
