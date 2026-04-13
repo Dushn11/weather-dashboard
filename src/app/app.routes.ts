@@ -8,4 +8,5 @@ export const routes: Routes = [
   { path: 'dashboard', component: Dashboard },
   { path: 'map', component: Map },
   { path: 'settings', component: Settings },
+  { path: '**', redirectTo: '/dashboard' }
 ];
