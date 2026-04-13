@@ -1,5 +1,25 @@
 <nav class="navbar bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/dashboard">Logo</a>
-  </div>
+    <div class="container-fluid">
+        <a class="navbar-brand text-white m-3" routerLink="/dashboard">Logo</a>
+        <ul class="navbar-nav d-flex flex-row me-auto mb-lg-0 gap-4 ms-3 px-2 py-1">
+            <li class="nav-item d-flex flex-row mb-lg-0 gap-4 ms-3 px-2 border border-light rounded bg-primary-subtle">
+                <a class="nav-link text-white">Krakow</a>
+                <a class="nav-link text-white">20°C</a>
+            </li>
+            <li
+                class="nav-item d-flex flex-row me-auto mb-lg-0 gap-4 ms-3 px-2 border border-light rounded bg-primary-subtle">
+                <a class="nav-link text-white">Warsaw</a>
+                <a class="nav-link text-white">18°C</a>
+            </li>
+            <li
+                class="nav-item d-flex flex-row me-auto mb-lg-0 gap-4 ms-3 px-2 border border-light rounded bg-primary-subtle">
+                <a class="nav-link text-white">Gdansk</a>
+                <a class="nav-link text-white">22°C</a>
+            </li>
+        </ul>
+        <input type="text" name="locationSearch" id="locationSearch" placeholder="Search location..."
+            class="form-control w-25">
+        <button class="ms-3 btn btn-outline-light">Search</button>
+        <a routerLink="/settings" class="nav-link text-white ms-5 me-3">S</a>
+    </div>
 </nav>
