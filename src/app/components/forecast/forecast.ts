@@ -6,4 +6,11 @@ import { Component } from '@angular/core';
   templateUrl: './forecast.html',
   styleUrl: './forecast.scss',
 })
-export class Forecast {}
+export class Forecast {
+  forecastData = {
+    city: 'Warsaw',
+    temp: 18,
+    condition: 'Cloudy',
+    wind: 12
+  };
+}

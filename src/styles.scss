@@ -41,3 +41,12 @@ router-outlet {
   display: block;
   padding-top: 106px; /* Adjust this value based on the height of your navbar */
 }
+
+gridster-item {
+  background: transparent !important;
+  height: min-content !important;
+}
+gridster {
+  height: calc(100vh - 106px) !important; /* Adjust this value based on the height of your navbar */
+  background-color: transparent !important;
+}

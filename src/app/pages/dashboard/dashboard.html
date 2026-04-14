@@ -1,1 +1,9 @@
-<button routerLink="/settings"></button>
+<gridster [options]="options">
+  @for (item of dashboard; track item) {
+  <gridster-item [item]="item">
+    @if (item['type'] === 'forecast1') {
+      <app-forecast></app-forecast>
+    }
+  </gridster-item>
+  }
+</gridster>
