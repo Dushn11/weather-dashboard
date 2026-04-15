@@ -5,7 +5,8 @@ $secondary-subtle: #1f2330;
 
 @import "bootstrap/scss/bootstrap";
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -34,19 +35,26 @@ app-navbar {
   width: 100%;
   z-index: 2;
 }
+
 .bg-primary-subtle {
   background-color: $primary-subtle !important;
 }
+
 router-outlet {
   display: block;
-  padding-top: 106px; /* Adjust this value based on the height of your navbar */
+  padding-top: 106px;
+  /* Adjust this value based on the height of your navbar */
 }
 
 gridster-item {
   background: transparent !important;
-  height: min-content !important;
+  justify-items: center;
+  align-items: center;
 }
+
 gridster {
-  height: calc(100vh - 106px) !important; /* Adjust this value based on the height of your navbar */
+   height: calc(150px * 5) !important;
+  /* Adjust this value based on the height of your navbar */
   background-color: transparent !important;
+  overflow: hidden;
 }

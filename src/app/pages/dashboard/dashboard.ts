@@ -27,9 +27,20 @@ export class Dashboard implements OnInit {
       this.options = {
         draggable: { enabled: true },
         resizable: { enabled: true },
+        maxCols: 6,
+        maxRows: 3,
+        gridType: 'fit',
+        outerMargin: true,
+        minCols: 6,
+        minRows: 3,
+        ColWidth: 172,
+        RowHeight: 172*2,
+        pushItems: true,
+        swap: false
       };
       this.dashboard = [
-        { cols: 2, rows: 1, y: 0, x: 1, type: 'forecast1' },
+        { cols: 1, rows: 2, y: 0, x: 1, type: 'forecast1' },
+        { cols: 1, rows: 2, y: 0, x: 2, type: 'forecast1' },
       ];
     }
   }
