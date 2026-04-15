@@ -34,7 +34,7 @@ export class Dashboard implements OnInit {
         minCols: 6,
         minRows: 3,
         ColWidth: 172,
-        RowHeight: 172*2,
+        RowHeight: 128*2,
         pushItems: true,
         swap: false
       };
