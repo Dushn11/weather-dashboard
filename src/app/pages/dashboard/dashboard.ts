@@ -1,14 +1,15 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
-import { Forecast } from '../../components/forecast/forecast';
+import { Forecast } from '../../widgets/forecast/forecast';
+import { WeatherChart } from '../../widgets/weather-chart/weather-chart';
 import { GridsterItem, Gridster, GridsterConfig, GridsterItemConfig } from 'angular-gridster2';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [Gridster, GridsterItem, Forecast],
+  imports: [Gridster, GridsterItem, Forecast, WeatherChart],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
@@ -39,8 +40,9 @@ export class Dashboard implements OnInit {
         swap: false
       };
       this.dashboard = [
-        { cols: 1, rows: 2, y: 0, x: 1, type: 'forecast1' },
-        { cols: 1, rows: 2, y: 0, x: 2, type: 'forecast1' },
+        { cols: 1, rows: 1, y: 0, x: 1, type: 'forecast1' },
+        { cols: 1, rows: 1, y: 0, x: 2, type: 'forecast1' },
+        { cols: 2, rows: 2, y: 0, x: 3, type: 'weatherChart' },
       ];
     }
   }
