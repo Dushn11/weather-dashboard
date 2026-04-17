@@ -1,10 +1,10 @@
 <gridster [options]="options">
   @for (item of dashboard; track item) {
   <gridster-item [item]="item">
-    @if (item['type'] === 'forecast1') {
+    @if (item.widget.type === 'forecast') {
       <app-forecast></app-forecast>
     }
-    @if (item['type'] === 'weatherChart') {
+    @if (item.widget.type === 'chart') {
       <app-weather-chart></app-weather-chart>
     }
   </gridster-item>
