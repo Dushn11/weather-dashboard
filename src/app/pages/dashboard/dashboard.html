@@ -5,8 +5,12 @@
       <app-forecast></app-forecast>
     }
     @if (item.widget.type === 'chart') {
-      <app-weather-chart></app-weather-chart>
+      <app-weather-chart [config]="item.widget"></app-weather-chart>
     }
+    @if (item.widget.type === 'map') {
+        <app-weather-map [config]="item.widget"></app-weather-map>
+      }
   </gridster-item>
   }
 </gridster>
+<button (click)="addWidget()"><i class="fas fa-plus"></i></button>

@@ -3,4 +3,5 @@ export interface WidgetConfig {
   metric?: 'temperature' | 'humidity' | 'pressure'
   period?: 'day' | 'week' | 'month'
   city?: string
+  zoom?: number;
 }

@@ -1,1 +1,8 @@
-<p>weather-map works!</p>
+<div class="map-widget-container">
+  <div #mapContainer class="map-container"></div>
+  @if (config?.city) {
+    <div class="city-label">
+      📍 {{ config.city }}
+    </div>
+  }
+</div>
