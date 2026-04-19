@@ -4,4 +4,5 @@ export interface WidgetConfig {
   period?: 'day' | 'week' | 'month'
   city?: string
   zoom?: number;
+   layer?: 'temperature' | 'wind' | 'humidity' | 'clouds' | 'precipitation';
 }

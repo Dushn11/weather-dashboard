@@ -1,15 +1,13 @@
 <div #chartContainer class="chart-wrap">
-
-<ngx-charts-line-chart
+  <ngx-charts-line-chart
     [view]="view"
     [curve]="curve"
     [results]="data"
     [xAxis]="true"
     [yAxis]="true"
-    [showXAxisLabel]="true"
     [showYAxisLabel]="true"
-    yAxisLabel="°C"
-    class ="card"
-  >
-</ngx-charts-line-chart>
+    [yAxisLabel]="yAxisLabel"
+    [scheme]="colorScheme"
+    class="card">
+  </ngx-charts-line-chart>
 </div>

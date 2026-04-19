@@ -1,9 +1,31 @@
-
-<div class="card p-3">
-    <h4>{{ forecastData.city }}</h4>
-    <div class="mt-2"> 
-        <p>Temperature: {{ forecastData.temp }}°C</p>
-        <p>Condition: {{ forecastData.condition }}</p>
-        <p>Wind: {{ forecastData.wind }} km/h</p>
+<div class="card">
+  @if (forecastData) {
+    <div class="forecast-header">
+      <div class="city-name">{{ forecastData.city }}</div>
+      <div class="temp-big">{{ forecastData.temp }}°C</div>
     </div>
+    <div class="condition">
+      <img [src]="'https://openweathermap.org/img/wn/' + forecastData.icon + '@2x.png'" alt="icon">
+      <span>{{ forecastData.condition }}</span>
+    </div>
+    <div class="details">
+      <div class="detail-item">
+        <i class="fas fa-wind"></i>
+        <span>{{ forecastData.wind }} m/s</span>
+        <small>Wind</small>
+      </div>
+      <div class="detail-item">
+        <i class="fas fa-droplet"></i>
+        <span>{{ forecastData.humidity }}%</span>
+        <small>Humidity</small>
+      </div>
+      <div class="detail-item">
+        <i class="fas fa-gauge"></i>
+        <span>{{ forecastData.pressure }} hPa</span>
+        <small>Pressure</small>
+      </div>
+    </div>
+  } @else {
+    <div class="loading">Loading...</div>
+  }
 </div>

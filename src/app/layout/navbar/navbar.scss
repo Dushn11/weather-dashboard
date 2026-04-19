@@ -1,0 +1,64 @@
+.navbar {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 8px !important;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.13) !important;
+    cursor: pointer;
+  }
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  border-radius: 8px;
+
+  &::placeholder { color: rgba(255, 255, 255, 0.4); }
+  &:focus {
+    background: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 0 0 2px rgba(129, 194, 255, 0.3);
+  }
+}
+
+.btn-outline-light {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(30, 35, 50, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  list-style: none;
+  padding: 4px 0;
+  margin: 4px 0 0;
+  z-index: 9999;
+
+  li {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.85);
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
