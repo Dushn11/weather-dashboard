@@ -1,4 +1,4 @@
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Forecast } from '../../widgets/forecast/forecast';
 import { WeatherChart } from '../../widgets/weather-chart/weather-chart';
@@ -6,27 +6,31 @@ import { WeatherMap } from '../../widgets/weather-map/weather-map';
 import { GridsterItem, Gridster, GridsterConfig } from 'angular-gridster2';
 import { DashboardItem } from './dashboard-item.interface';
 import { Weather } from '../../core/weather';
-
+import { WidgetPicker, WidgetConfig } from '../../shared/widget-picker';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [Gridster, GridsterItem, Forecast, WeatherChart, WeatherMap],
+  imports: [Gridster, GridsterItem, Forecast, WeatherChart, WeatherMap, WidgetPicker],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
 export class Dashboard implements OnInit {
   editMode = false;
-  widgetId = 0;
+  widgetPickerOpen = signal(false);
+  dashboard = signal<DashboardItem[]>([]);
+
   constructor(private titleService: Title, private weather: Weather) {
     effect(() => {
       if (this.weather.openDef()) {
-        this.dashboard = [...this.defaultDashboard];
+        const def = this.defaultDashboard;
         this.weather.openDef.set(false);
+        this.dashboard.set(def);
+        localStorage.setItem('dashboard', JSON.stringify(def));
       }
-      else this.dashboard = [...this.dashboard];
-    })
+    });
   }
+
   options: GridsterConfig = {
     draggable: { enabled: false },
     resizable: { enabled: false },
@@ -39,9 +43,11 @@ export class Dashboard implements OnInit {
     ColWidth: 172 / 2,
     RowHeight: 128,
     pushItems: true,
-    swap: true
+    swap: true,
+    itemChangeCallback: () => this.save(),
+    itemResizeCallback: () => this.save(),
   };
-  dashboard: DashboardItem[] = [];
+
   get defaultDashboard(): DashboardItem[] {
     const city = this.weather.city();
     return [
@@ -52,37 +58,56 @@ export class Dashboard implements OnInit {
       { cols: 4, rows: 2, y: 4, x: 8, widget: { type: 'chart', metric: 'pressure', period: 'month' } },
     ];
   }
+
   ngOnInit() {
     this.titleService.setTitle('Weather Dashboard');
-    this.dashboard = [];
+    const saved = localStorage.getItem('dashboard');
+    this.dashboard.set(saved ? JSON.parse(saved) : []);
   }
+  private save() {
+    localStorage.setItem('dashboard', JSON.stringify(this.dashboard()));
+
+  }
+
   private getWidgetDefaults(type: string): Partial<DashboardItem> {
     const defaults: Record<string, Partial<DashboardItem>> = {
-      'map': { cols: 3, rows: 3, minItemCols: 2, minItemRows: 3 },
-      'forecast': { cols: 2, rows: 2, minItemCols: 2, minItemRows: 2 },
-      'chart': { cols: 2, rows: 1, minItemCols: 2, minItemRows: 1 },
+      map: { cols: 4, rows: 4, minItemCols: 3, minItemRows: 4 },
+      forecast: { cols: 8, rows: 4, minItemCols: 3, minItemRows: 5 },
+      chart: { cols: 4, rows: 2, minItemCols: 2, minItemRows: 2 },
     };
-    return defaults[type] ?? { cols: 1, rows: 1 };
+    return defaults[type] ?? { cols: 3, rows: 2 };
   }
-  addWidget(): void {
-    this.dashboard.push({
-      cols: 1,
-      rows: 1,
-      y: 0,
-      x: 0,
-      ...this.getWidgetDefaults('chart'),
-      widget: {
-        type: 'map'
-      }
-    });
-  }
-  toggleEditMode() {
-    this.editMode = !this.editMode
 
+  openWidgetPicker(): void {
+    this.widgetPickerOpen.set(true);
+  }
+
+  onWidgetAdded(config: WidgetConfig): void {
+    const city = this.weather.city();
+    const defaults = this.getWidgetDefaults(config.type);
+    this.dashboard.update(items => [
+      ...items,
+      {
+        cols: (defaults as any).cols ?? 4,
+        rows: (defaults as any).rows ?? 2,
+        y: 0,
+        x: 0,
+        ...(defaults as any),
+        widget: {
+          ...config,
+          ...(config.type === 'map' ? { city } : {}),
+        },
+      },
+    ]);
+    this.save();
+  }
+
+  toggleEditMode() {
+    this.editMode = !this.editMode;
     this.options = {
       ...this.options,
       draggable: { enabled: this.editMode },
       resizable: { enabled: this.editMode },
-    }
+    };
   }
 }

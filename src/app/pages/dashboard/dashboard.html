@@ -1,19 +1,39 @@
-<gridster [options]="options" [class]="editMode? 'inEditMode' :''">
-  @for (item of dashboard; track item) {
-  <gridster-item [item]="item">
-    @if (item.widget.type === 'forecast') {
-    <app-forecast></app-forecast>
-    }
-    @if (item.widget.type === 'chart') {
-    <app-weather-chart [config]="item.widget"></app-weather-chart>
-    }
-    @if (item.widget.type === 'map') {
-    <app-weather-map [config]="item.widget"></app-weather-map>
-    }
-  </gridster-item>
+<gridster [options]="options" [class]="editMode ? 'inEditMode' : ''">
+  @for (item of dashboard(); track item) {
+    <gridster-item [item]="item">
+      @if (item.widget.type === 'forecast') {
+        <app-forecast></app-forecast>
+      }
+      @if (item.widget.type === 'chart') {
+        <app-weather-chart [config]="item.widget"></app-weather-chart>
+      }
+      @if (item.widget.type === 'map') {
+        <app-weather-map [config]="item.widget" [editMode]="editMode"></app-weather-map>
+      }
+    </gridster-item>
   }
 </gridster>
-<div class="buttonContainer" [style.display]="editMode? 'flex':'none' ">
-  <button (click)="toggleEditMode()"><i [class]="editMode? 'fa-solid fa-x' : ''"></i></button>
-  <button (click)="addWidget()" [style.display]="editMode? 'block':'none'"><i class="fas fa-plus"></i></button>
+
+<div class="buttonContainer">
+  <button (click)="toggleEditMode()">
+    <i [class]="editMode ? 'fa-solid fa-x' : 'fa-solid fa-pencil'"></i>
+  </button>
+  <button (click)="openWidgetPicker()" [style.display]="editMode ? 'block' : 'none'">
+    <i class="fas fa-plus"></i>
+  </button>
 </div>
+
+@if (dashboard().length === 0) {
+  <div class="emptyDashboard">
+    <button (click)="openWidgetPicker(); toggleEditMode()">
+      <i class="fas fa-plus"></i>
+    </button>
+    <p>Dashboard is empty. Click the plus button to add a widget.</p>
+  </div>
+}
+
+<app-widget-picker
+  [isOpen]="widgetPickerOpen()"
+  (closed)="widgetPickerOpen.set(false)"
+  (widgetAdded)="onWidgetAdded($event)"
+></app-widget-picker>

@@ -1,0 +1,63 @@
+@if (isOpen()) {
+<div class="overlay" (click)="close()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal__header">
+      <span class="modal__title">Add Widget</span>
+      <button class="modal__close" (click)="close()">
+        <i class="fa-solid fa-x"></i>
+      </button>
+    </div>
+
+    <div class="modal__grid">
+      @for (widget of widgets; track widget.type) {
+      <button class="widget-card" [class.selected]="selected === widget.type" (click)="select(widget.type)">
+        <i [class]="widget.icon"></i>
+        <span class="widget-card__name">{{ widget.label }}</span>
+        <span class="widget-card__desc">{{ widget.desc }}</span>
+      </button>
+      }
+    </div>
+
+    @if (selected === 'chart') {
+    <div class="modal__options">
+      <span class="options__label">Metric</span>
+      <div class="options__row">
+        @for (m of metrics; track m.value) {
+        <button class="option-btn" [class.active]="chartMetric === m.value" (click)="chartMetric = m.value">
+          {{ m.label }}
+        </button>
+        }
+      </div>
+      <span class="options__label">Period</span>
+      <div class="options__row">
+        @for (p of periods; track p.value) {
+        <button class="option-btn" [class.active]="chartPeriod === p.value" (click)="chartPeriod = p.value">
+          {{ p.label }}
+        </button>
+        }
+      </div>
+    </div>
+    }
+
+    @if (selected === 'map') {
+    <div class="modal__options">
+      <span class="options__label">Layer</span>
+      <div class="options__row">
+        @for (l of layers; track l.value) {
+        <button class="option-btn" [class.active]="mapLayer === l.value" (click)="mapLayer = l.value">
+          {{ l.label }}
+        </button>
+        }
+      </div>
+    </div>
+    }
+
+    <div class="modal__footer">
+      <button class="btn-cancel" (click)="close()">Cancel</button>
+      <button class="btn-add" [disabled]="!selected" (click)="confirm()">
+        <i class="fas fa-plus"></i> Add Widget
+      </button>
+    </div>
+  </div>
+</div>
+}

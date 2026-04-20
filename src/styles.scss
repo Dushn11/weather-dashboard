@@ -61,3 +61,13 @@ gridster {
 
 .gridster-column { border-color: transparent !important; }
 .gridster-row { border-color: transparent !important; }
+app-widget-picker {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none; // чтобы не блокировал клики когда закрыт
+
+  .overlay {
+    pointer-events: all;
+  }
+}

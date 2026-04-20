@@ -1,8 +1,10 @@
 <div class="map-widget-container">
-  <div #mapContainer class="map-container"></div>
-  @if (config?.city) {
+  <div class="map-overlay" [style.display]="editMode? 'block':'none'"></div>
+  <div #mapContainer class="map-container">
+    @if (config?.city) {
     <div class="city-label">
       📍 {{ config.city }}
     </div>
-  }
+    }
+  </div>
 </div>
